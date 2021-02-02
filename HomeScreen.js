@@ -12,11 +12,8 @@ function HomeScreen({ navigation }) {
       <Text>Home Screen</Text>
       <Button
         title="Go to Details"
-        onPress={() => navigation.push('Details')}
+        onPress={() => navigation.push("Details")}
       />
-      
-     
-     
     </View>
   );
 }
