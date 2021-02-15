@@ -6,20 +6,21 @@ import { useRef } from 'react';
 import { useState } from 'react';
 
 //Home screen component
-const HomeScreen = ({navigation}) => {
+const HomeScreen = (props) => {
   let cameraRef = useRef(null)
   const [cameraType, setcameraType] = useState(RNCamera.Constants.Type.back);
   const [FlashMode, setfalshligt] = useState(RNCamera.Constants.FlashMode.off);
   
+  //Capture method for camera
   takePicture = async () => {
     if (cameraRef) {
       const options = { quality: 0.5, base64: true };
-      const data = await 
-      current.takePictureAsync(options);
-      console.log(data.uri);
+      const data = await cameraRef.current.takePictureAsync(options);
+      props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
     }
   };
 
+  //Flip camera side method 
   flipCamera =() => {
       if(cameraType== RNCamera.Constants.Type.back){
         setcameraType(RNCamera.Constants.Type.front)
@@ -27,6 +28,8 @@ const HomeScreen = ({navigation}) => {
         setcameraType(RNCamera.Constants.Type.back)
       }
   };
+
+  //Flash Light on off method
   falshligt =()=> {
     if(FlashMode ==RNCamera.Constants.FlashMode.off){
       setfalshligt(RNCamera.Constants.FlashMode.on)
@@ -42,9 +45,16 @@ const HomeScreen = ({navigation}) => {
           style={styles.preview}
           type={cameraType}
           flashMode={FlashMode}
+          captureAudio={false}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          androidRecordAudioPermissionOptions={{
+            title: 'Permission to use audio recording',
+            message: 'We need your permission to use your audio',
             buttonPositive: 'Ok',
             buttonNegative: 'Cancel',
           }}

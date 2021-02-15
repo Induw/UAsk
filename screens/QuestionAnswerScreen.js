@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 
-const BookmarkScreen = (props) => {
+const QuestionAnswerScreen = (props) => {
     return (
       <View style={styles.container}>
-
+        <Image style={{width:120, height: 300}} source={{uri:props.route.params.uri}} ></Image>
       </View>
     );
 };
 
-export default BookmarkScreen;
+export default QuestionAnswerScreen;
 
 const styles = StyleSheet.create({
   container: {
