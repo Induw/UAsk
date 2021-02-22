@@ -1,0 +1,1 @@
+this folder contains all the code related to the backend of the application
