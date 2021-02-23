@@ -1,48 +1,134 @@
-import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
 import { 
   NavigationContainer
 } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { DrawerContent } from './screens/DrawerContent';
+import { DrawerContent } from './Components/DrawerContent';
 import SplashScreen from 'react-native-splash-screen'
 
-
-import MainTabScreen from './screens/MainTabScreen';
-import SupportScreen from './screens/SupportScreen';
+import HelpScreen from './screens/HelpScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import BookmarkScreen from './screens/BookmarkScreen';
+import AboutUsScreen from './screens/AboutUsScreen';
+import TopHeadingBar from './Components/TopHeadingBar';
 import QuestionAnswerScreen from './screens/QuestionAnswerScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
-export default class App extends Component {
-    componentDidMount() {
-    // do stuff while splash screen is shown
-    // After having done stuff (such as async tasks) hide the splash screen
+const App = () => {
+  useEffect(() => {
+   setTimeout(() => {
     SplashScreen.hide();
-  }
-  render(){
+   // write your functions    
+  },1000);
+  },[]);
+
+  return (
+    
+
+    <NavigationContainer>
+        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}  >
+          <Drawer.Screen name="HomeDrawer" component={TopHeadingBar} />
+          <Drawer.Screen name="HelpScreen" component={HelpScreenStack} />
+          <Drawer.Screen name="SettingsScreen" component={secondScreenStack} />
+          <Drawer.Screen name="AboutUsScreen" component={AboutUsScreenStack} />
+          <Drawer.Screen name="QuestionAnswerScreen" component={QuestionAnswerScreen} />
+        </Drawer.Navigator>
+    </NavigationContainer>
+  );
+
+  function secondScreenStack({navigation}) {
     return (
-   
-      <NavigationContainer>
-          <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-            <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-            <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-            <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-            <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
-            <Drawer.Screen name="QuestionAnswerScreen" component={QuestionAnswerScreen} />
-          </Drawer.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="HomeScreen"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#fff', //Set Header color
+          },
+          headerTintColor: '#264CAD', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}>
+        <Stack.Screen
+          name="SettingsScreen"
+          component={SettingsScreen}
+          options={{
+            headerTitleAlign: 'center',
+            title: 'Settings',//Set Header Title
+            headerLeft: () => (
+              //Hamburger icon
+                <Icon.Button name="arrow-back" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.goBack()}></Icon.Button>
+            ) 
+          }}/>        
+      </Stack.Navigator>
     );
   }
     
-  
+  //Stack heading bar for Help screen
+  function HelpScreenStack({navigation}) {
+    return (
+      <Stack.Navigator
+        initialRouteName="HomeScreen"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#fff', //Set Header color
+          },
+          headerTintColor: '#264CAD', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}>
+        <Stack.Screen
+          name="HelpScreen"
+          component={HelpScreen}
+          options={{
+            headerTitleAlign: 'center',
+            title: 'Help', //Set Header Title
+            headerLeft: () => (
+              //Hamburger icon
+                <Icon.Button name="arrow-back" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.goBack()}></Icon.Button>
+            ) 
+          }}/>
+      </Stack.Navigator>
+    );
   }
   
- 
+  //Stack heading bar for About us screen
+  function AboutUsScreenStack({navigation}) {
+    return (
+      <Stack.Navigator
+        initialRouteName="HomeScreen"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#fff', //Set Header color
+          },
+          headerTintColor: '#264CAD', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}>
+        <Stack.Screen
+          name="AboutUsScreen"
+          component={AboutUsScreen}
+          options={{
+            headerTitleAlign: 'center',
+            title: 'About Us', //Set Header Title
+            headerLeft: () => (
+              //Hamburger icon
+                <Icon.Button name="arrow-back" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.goBack()}></Icon.Button>
+            ) 
+          }}/>
+      </Stack.Navigator>
+    );
+  }
 
+}
 
+export default App;
 

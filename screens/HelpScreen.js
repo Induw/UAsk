@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-const SupportScreen = () => {
+const HelpScreen = () => {
     return (
       <View style={styles.container}>
-        <Text>Support Screen</Text>
+        <Text>Help Screen</Text>
         <Button
           title="Click Here"
           onPress={() => alert('Button Clicked!')}
@@ -13,7 +13,7 @@ const SupportScreen = () => {
     );
 };
 
-export default SupportScreen;
+export default HelpScreen;
 
 const styles = StyleSheet.create({
   container: {

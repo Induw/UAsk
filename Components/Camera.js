@@ -5,9 +5,8 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-
 //Home screen components
-const HomeScreen = (props) => {
+const Camera = (props) => {
   let cameraRef = useRef(null)
   const [cameraType, setcameraType] = useState(RNCamera.Constants.Type.back);
   const [FlashMode, setfalshligt] = useState(RNCamera.Constants.FlashMode.off);
@@ -43,9 +42,10 @@ const HomeScreen = (props) => {
     }
   };
 
-    return ( 
+    return (
+          
+     
       <View style={styles.container}>
-        
         <RNCamera
           ref={cameraRef}
           style={styles.preview}
@@ -67,34 +67,27 @@ const HomeScreen = (props) => {
         />
         
         
-        
-        
-        <View style={styles.camBottomBar}>
+        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
             <TouchableOpacity   onPress={() => falshligt()} style={styles.capture}>
-            <Icon name="flash" size={36} color='#264CAD' />
+            <Icon name="flash" size={36} color='#ffff' />
             </TouchableOpacity>
             <TouchableOpacity  onPress={() => takePicture(props)} style={styles.captureBtn}>
             </TouchableOpacity>
             <TouchableOpacity  onPress={() => flipCamera()} style={styles.capture}>
-            <Icon name="camera-reverse" size={36} color='#264CAD' />
-                
-          </TouchableOpacity>
+            <Icon name="camera-reverse" size={36} color='#ffff' />
+            </TouchableOpacity>
         </View>
       </View>
-      
     );
   }
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: 'column',
-      backgroundColor: '#264CAD',
+      backgroundColor: '#fff',
     },
     preview: {
       flex: 1,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      borderRadius: 5
     },
     capture: {
       flex: 0,
@@ -102,7 +95,7 @@ const HomeScreen = (props) => {
       padding: 15,
       paddingHorizontal: 50,
       alignSelf: 'center',
-      margin: 10,
+      margin: 20,
       borderRadius: 50,
     },
     captureBtn: {
@@ -112,23 +105,8 @@ const HomeScreen = (props) => {
         borderWidth: 5,
         borderColor: '#264CAD',
         backgroundColor: '#ffff',
-        marginTop: 10
+        marginTop: 20
     },
-    camBottomBar: {
-      flex: 0, 
-      flexDirection: 'row', 
-      justifyContent: 'center',
-      backgroundColor: '#fff', 
-      borderRadius: 100, 
-      marginTop: 10, 
-      marginBottom: 10,
-      marginHorizontal: 10,
-      opacity: 0.8,
-      
-    }
   });
-export default HomeScreen;
-
-
-
-
+export default Camera;
+    
