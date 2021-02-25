@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react';
-import { 
-  NavigationContainer
-} from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 import { DrawerContent } from './Components/DrawerContent';
-import SplashScreen from 'react-native-splash-screen'
+import { createStackNavigator } from '@react-navigation/stack';
 
+import SplashScreen from 'react-native-splash-screen';
 import HelpScreen from './screens/HelpScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import AboutUsScreen from './screens/AboutUsScreen';
 import TopHeadingBar from './Components/TopHeadingBar';
 import QuestionAnswerScreen from './screens/QuestionAnswerScreen';
-import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/Ionicons';
-
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -24,13 +19,10 @@ const App = () => {
   useEffect(() => {
    setTimeout(() => {
     SplashScreen.hide();
-   // write your functions    
   },1000);
   },[]);
 
   return (
-    
-
     <NavigationContainer>
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}  >
           <Drawer.Screen name="HomeDrawer" component={TopHeadingBar} />
@@ -62,7 +54,7 @@ const App = () => {
             headerTitleAlign: 'center',
             title: 'Settings',//Set Header Title
             headerLeft: () => (
-              //Hamburger icon
+              //Back button
                 <Icon.Button name="arrow-back" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.goBack()}></Icon.Button>
             ) 
           }}/>        
@@ -91,7 +83,7 @@ const App = () => {
             headerTitleAlign: 'center',
             title: 'Help', //Set Header Title
             headerLeft: () => (
-              //Hamburger icon
+              //Back button
                 <Icon.Button name="arrow-back" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.goBack()}></Icon.Button>
             ) 
           }}/>
@@ -120,14 +112,13 @@ const App = () => {
             headerTitleAlign: 'center',
             title: 'About Us', //Set Header Title
             headerLeft: () => (
-              //Hamburger icon
+              //Back button
                 <Icon.Button name="arrow-back" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.goBack()}></Icon.Button>
             ) 
           }}/>
       </Stack.Navigator>
     );
   }
-
 }
 
 export default App;

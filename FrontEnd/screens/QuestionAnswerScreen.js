@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
-
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const QuestionAnswerScreen = (props) => {
   useEffect(() => {
@@ -11,25 +9,39 @@ const QuestionAnswerScreen = (props) => {
     console.log(props+"--------------------------------------------------------");
   },[]);
     return (
-        <View style={styles.container}>
-          <View style={{ height: 500, width: 500, justifyContent: 'center'}}>
-          <Image style={styles.img} source={{uri:props.route.params.uri}} ></Image>
+      <SafeAreaView style={styles.container}>
+          <View style={styles.imgView}>
+            <Image style={styles.img} source={{uri:props.route.params.uri}} ></Image>
           </View>
-        <View style={styles.QuestionAnswerBox}>
-          <Text>Question answer View</Text>
-        </View>
+          <View style={styles.QuestionAnswerBox}>
+            <View style={styles.wrap}>
+              <ScrollView>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+                <Text>Question answer View</Text>
+              </ScrollView>
+            </View>
+          </View>
           <View style={styles.bottomBar}>
-              <TouchableOpacity   onPress={() => falshligt()} style={styles.capture}>
-              <Icon name="flash" size={36} color='#ffff' />
+              <TouchableOpacity     style={styles.capture}>
+              < Icon name="camera-outline" size={36} color='#264CAD' />
             </TouchableOpacity>
               <TouchableOpacity  onPress={() => takePicture(props)} style={styles.capture}>
-              <Icon name="mic-circle-outline" size={36} color='#ffff' />
+              <Icon name="mic-circle-outline" size={70} color='#264CAD' />
             </TouchableOpacity>
               <TouchableOpacity  onPress={() => flipCamera()} style={styles.capture}>
-            < Icon name="flash" size={36} color='#ffff' />
+            <Icons name='keyboard' size={36} type='material' color='#264CAD' />
             </TouchableOpacity>
           </View>
-        </View>
+      </SafeAreaView>
     );
 };
 
@@ -42,34 +54,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#264CAD',
   },
   img: {
-    // width: '100%',
-    // height: 500,
-    // borderRadius: 5,
-    height: 450,
+    height: '100%',
     width: '100%',
     borderRadius: 20
   },
+  imgView: {
+    height: '50%',
+    width: '96%',
+    margin: 10,
+    borderRadius: 10,
+  },
   QuestionAnswerBox: {
-
+    backgroundColor: '#fff',
+    width: '96%',
+    height: '30%',
+    borderRadius: 20,
+    opacity: 0.6,
+  },
+  wrap: {
+    margin: 5,
+    borderRadius: 10 
   },
   capture: {
     flex: 0,
-      borderRadius: 5,
-      padding: 15,
-      paddingHorizontal: 50,
-      alignSelf: 'center',
-      margin: 10,
-      borderRadius: 50,
+    borderRadius: 5,
+    paddingHorizontal: 30,
+    alignSelf: 'center',
+    marginHorizontal: 5,
+    marginVertical: 5
   },
   bottomBar: {
     flex: 0, 
     flexDirection: 'row', 
-      justifyContent: 'center',
-      backgroundColor: '#fff', 
-      borderRadius: 100, 
-      marginTop: 10, 
-      marginBottom: 10,
-      marginHorizontal: 10,
-      opacity: 0.8,
+    backgroundColor: '#fff', 
+    borderRadius: 100, 
+    marginTop: 20, 
+    opacity: 0.8,
   }
 });
