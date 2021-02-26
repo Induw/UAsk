@@ -1,13 +1,43 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
+
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+]
+
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 
 const QuestionAnswerScreen = (props) => {
   useEffect(() => {
     // Update the document title using the browser API
     console.log(props+"--------------------------------------------------------");
   },[]);
+
+  
+
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
+
     return (
       <SafeAreaView style={styles.container}>
           <View style={styles.imgView}>
@@ -15,19 +45,11 @@ const QuestionAnswerScreen = (props) => {
           </View>
           <View style={styles.QuestionAnswerBox}>
             <View style={styles.wrap}>
-              <ScrollView>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-                <Text>Question answer View</Text>
-              </ScrollView>
+            <FlatList
+              data={DATA}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+            />
             </View>
           </View>
           <View style={styles.bottomBar}>
@@ -90,5 +112,14 @@ const styles = StyleSheet.create({
     borderRadius: 100, 
     marginTop: 20, 
     opacity: 0.8,
-  }
+  },
+   item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
 });

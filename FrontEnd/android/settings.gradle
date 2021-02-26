@@ -1,4 +1,6 @@
 rootProject.name = 'UAsk'
+include ':react-native-volume-control'
+project(':react-native-volume-control').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-volume-control/android')
 include ':react-native-splash-screen'
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 include ':react-native-vector-icons'

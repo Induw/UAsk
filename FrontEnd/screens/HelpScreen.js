@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React ,{ useEffect }from 'react';
+import { View, Text, Button, StyleSheet, BackHandler, Alert } from 'react-native';
 
 const HelpScreen = () => {
     return (

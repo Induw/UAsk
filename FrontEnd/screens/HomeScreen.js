@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { ActionSheet, Root } from 'native-base';
 import ImagePicker from "react-native-image-crop-picker";
 
-
 //Home screen components
 const HomeScreen = (props) => {
   let cameraRef = useRef(null)
@@ -23,7 +22,6 @@ const HomeScreen = (props) => {
       // console.log(data,"--------------------------------------------------------");
       props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
       console.log(props.navigation,"-ggggggggggg-");
-
     }
   };
 
@@ -47,8 +45,8 @@ const HomeScreen = (props) => {
 
   //navigate with selected image from defualt image gallery
   navigateToViewPhotos = data => {
-    console.log(data,"-ggggggggggg-ssasdasdas");
-    props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
+    console.log("-ggggggggggg-ssasdasdas", data);
+    props.navigation.navigate("QuestionAnswerScreen",{uri:data[0].path})
   };
 
   choosePhotosFromGallery = () => {

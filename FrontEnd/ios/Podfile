@@ -12,6 +12,8 @@ target 'UAsk' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'RNVolumeController', :path => '../node_modules/react-native-volume-control'
+
   target 'UAskTests' do
     inherit! :complete
     # Pods for testing
