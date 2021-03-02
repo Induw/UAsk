@@ -5,7 +5,30 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActionSheet, Root } from 'native-base';
-import ImagePicker from "react-native-image-crop-picker";
+//import ImagePicker from "react-native-image-crop-picker";
+import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+
+//  Create formData object to send to backend
+const createFormData = (photo) => {
+  const data = new FormData();
+  data.append('image', {
+    name: photo.fileName,
+    uri: photo.uri,
+    type: photo.type
+  })
+
+  return data;
+}
+
+//  Handle the photo upload
+const handleUploadPhoto = (photo) => {
+  fetch("http://192.168.1.3:3000/api/ask", {
+    method: 'POST',
+    body: createFormData(photo),
+  })
+  .then(alert("Upload Success!"))
+  .catch(err => alert("Error: ", err))
+}
 
 //Home screen components
 const HomeScreen = (props) => {
@@ -21,7 +44,8 @@ const HomeScreen = (props) => {
       const data = await cameraRef.current.takePictureAsync(options);
       // console.log(data,"--------------------------------------------------------");
       props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
-      console.log(props.navigation,"-ggggggggggg-");
+      //console.log(props.navigation,"-ggggggggggg-");
+      handleUploadPhoto(data);
     }
   };
 
@@ -44,26 +68,42 @@ const HomeScreen = (props) => {
   };
 
   //navigate with selected image from defualt image gallery
-  navigateToViewPhotos = data => {
-    console.log("-ggggggggggg-ssasdasdas", data);
-    props.navigation.navigate("QuestionAnswerScreen",{uri:data[0].path})
+  navigateToViewPhotos = (data) => {
+    //console.log("-ggggggggggg-ssasdasdas", data);
+    //console.log("FileName 0: ==== ", data.fileName)
+    props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
+    //handleUploadPhoto(data);
   };
 
   choosePhotosFromGallery = () => {
-  ImagePicker.openPicker({
-      width:  600,
-      height: 450,
-      multiple: true,
-  })
-      .then(images => {
-          console.log(images)
-          if (images.length > 0) {
-              navigateToViewPhotos(images);
-          }
-      })
-      .catch(err => {
-          console.log(' Error fetching images from gallery ', err);
-      });
+    const options = {
+      maxWidth: 600,
+      maxHeight: 450,
+      quality: 0.5
+    }
+
+    launchImageLibrary(options, response => {
+      //console.log(response);
+      if(!response.didCancel){
+        navigateToViewPhotos(response)
+        handleUploadPhoto(response)
+      }
+
+    })
+  // ImagePicker.openPicker({
+  //     width:  600,
+  //     height: 450,
+  //     multiple: true,
+  // })
+  //     .then(images => {
+  //         console.log(images)
+  //         if (images.length > 0) {
+  //             navigateToViewPhotos(images);
+  //         }
+  //     })
+  //     .catch(err => {
+  //         console.log(' Error fetching images from gallery ', err);
+  //     });
 };
 
 selectImages = () => {
