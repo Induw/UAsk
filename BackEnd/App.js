@@ -24,9 +24,6 @@ const imageUpload = multer({
 
 // post image and question as json
 app.post('/api/ask', imageUpload.single('image'), (req, res) => {
-    console.log("file: ", req);
-    //console.log("body: ", req.body)
-
     res.status(200).send('POST request recieved...');
 })
 

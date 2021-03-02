@@ -5,8 +5,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActionSheet, Root } from 'native-base';
-//import ImagePicker from "react-native-image-crop-picker";
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 //  Create formData object to send to backend
 const createFormData = (photo) => {
@@ -39,13 +38,17 @@ const HomeScreen = (props) => {
   //Capture method for camera
   takePicture = async (props) => {
     if (cameraRef) {
-      console.log('Taking photo');
       const options = { quality: 0.5, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
-      // console.log(data,"--------------------------------------------------------");
       props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
-      //console.log(props.navigation,"-ggggggggggg-");
-      handleUploadPhoto(data);
+
+      //  creating an object with default name & type
+      const photo = {
+        fileName: 'cameraPhoto.jpg',
+        uri: data.uri,
+        type: 'image/jpeg'
+      }
+      handleUploadPhoto(photo);
     }
   };
 
@@ -69,10 +72,7 @@ const HomeScreen = (props) => {
 
   //navigate with selected image from defualt image gallery
   navigateToViewPhotos = (data) => {
-    //console.log("-ggggggggggg-ssasdasdas", data);
-    //console.log("FileName 0: ==== ", data.fileName)
     props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
-    //handleUploadPhoto(data);
   };
 
   choosePhotosFromGallery = () => {
@@ -82,28 +82,14 @@ const HomeScreen = (props) => {
       quality: 0.5
     }
 
+    //  launches image library and responds with an object with image details
     launchImageLibrary(options, response => {
-      //console.log(response);
       if(!response.didCancel){
         navigateToViewPhotos(response)
         handleUploadPhoto(response)
       }
 
     })
-  // ImagePicker.openPicker({
-  //     width:  600,
-  //     height: 450,
-  //     multiple: true,
-  // })
-  //     .then(images => {
-  //         console.log(images)
-  //         if (images.length > 0) {
-  //             navigateToViewPhotos(images);
-  //         }
-  //     })
-  //     .catch(err => {
-  //         console.log(' Error fetching images from gallery ', err);
-  //     });
 };
 
 selectImages = () => {
