@@ -4,7 +4,7 @@ import { RNCamera } from 'react-native-camera';
 import { useRef } from 'react';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ActionSheet, Root } from 'native-base';
+import { Root } from 'native-base';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 //  Create formData object to send to backend
@@ -92,25 +92,6 @@ const HomeScreen = (props) => {
     })
 };
 
-selectImages = () => {
-  const buttons = ['Camera', 'Photo Library', 'Cancel'];
-  ActionSheet.show(
-      {
-          options: buttons,
-          cancelButtonIndex: 2,
-      },
-      buttonIndex => {
-          console.log(' selected index ', buttonIndex);
-          switch (buttonIndex) {
-              case 1:
-                  this.choosePhotosFromGallery();
-                  break;
-              default:
-                  break;
-          }
-      },
-  );
-}
 
     return ( 
       <Root>
@@ -138,7 +119,7 @@ selectImages = () => {
           </View>
           <View style={styles.bottomSection}>
             <View style={styles.camBottomBar}>
-                <TouchableOpacity   onPress={() => selectImages()} style={styles.capture}>
+                <TouchableOpacity   onPress={() => choosePhotosFromGallery()} style={styles.capture}>
                   <Icon name="images-outline" size={36} color='#264CAD' />
                 </TouchableOpacity>
                 <TouchableOpacity  onPress={() => takePicture(props)} style={styles.captureBtn}>
