@@ -11,6 +11,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import AboutUsScreen from './screens/AboutUsScreen';
 import TopHeadingBar from './Components/TopHeadingBar';
 import QuestionAnswerScreen from './screens/QuestionAnswerScreen';
+import HomeScreen from './screens/HomeScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ const App = () => {
           <Drawer.Screen name="SettingsScreen" component={secondScreenStack} />
           <Drawer.Screen name="AboutUsScreen" component={AboutUsScreenStack} />
           <Drawer.Screen name="QuestionAnswerScreen" component={QuestionAnswerScreen} />
+          <Drawer.Screen name="Homescreen" component={HomeScreen} />
         </Drawer.Navigator>
     </NavigationContainer>
   );
@@ -37,7 +39,7 @@ const App = () => {
   function secondScreenStack({navigation}) {
     return (
       <Stack.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: {
             backgroundColor: '#fff', //Set Header color
@@ -66,7 +68,7 @@ const App = () => {
   function HelpScreenStack({navigation}) {
     return (
       <Stack.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: {
             backgroundColor: '#fff', //Set Header color
@@ -95,7 +97,7 @@ const App = () => {
   function AboutUsScreenStack({navigation}) {
     return (
       <Stack.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: {
             backgroundColor: '#fff', //Set Header color

@@ -49,6 +49,7 @@ const HomeScreen = (props) => {
         type: 'image/jpeg'
       }
       handleUploadPhoto(photo);
+      props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri});
     }
   };
 
@@ -73,7 +74,10 @@ const HomeScreen = (props) => {
   //navigate with selected image from defualt image gallery
   navigateToViewPhotos = (data) => {
     props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
+  navigateToViewPhotos = data => {
+    props.navigation.navigate("QuestionAnswerScreen",{uri:data[0].path})
   };
+}
 
   choosePhotosFromGallery = () => {
     const options = {
@@ -153,7 +157,13 @@ selectImages = () => {
       </Root>
       
     );
-  }
+  };
+  export default HomeScreen;
+
+
+
+
+
 
   const styles = StyleSheet.create({
     container: {
@@ -202,11 +212,4 @@ selectImages = () => {
       opacity: 0.8,
     }
   });
-export default HomeScreen;
-
-
-
-
-
-
 

@@ -58,6 +58,8 @@ const HelpScreen = () => {
   );
 };
 
+export default HelpScreen;
+
 const styles = StyleSheet.create({
   baseText: {
     fontSize: 15,
@@ -82,4 +84,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HelpScreen;
+
