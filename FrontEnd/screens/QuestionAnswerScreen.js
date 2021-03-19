@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-
 
 const DATA = [
   {
@@ -27,12 +25,11 @@ const Item = ({ title }) => (
 );
 
 const QuestionAnswerScreen = (props) => {
+
   useEffect(() => {
     // Update the document title using the browser API
     console.log(props+"--------------------------------------------------------");
   },[]);
-
-  
 
   const renderItem = ({ item }) => (
     <Item title={item.title} />
@@ -54,7 +51,7 @@ const QuestionAnswerScreen = (props) => {
           </View>
           <View style={styles.bottomBar}>
               <TouchableOpacity     style={styles.capture}>
-              < Icon name="camera-outline" size={36} color='#264CAD' />
+              < Icon name="camera-outline" onPress={() => {props.navigation.navigate('Home')}} size={36} color='#264CAD' />
             </TouchableOpacity>
               <TouchableOpacity  onPress={() => takePicture(props)} style={styles.capture}>
               <Icon name="mic-circle-outline" size={70} color='#264CAD' />

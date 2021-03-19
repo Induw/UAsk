@@ -4,8 +4,30 @@ import { RNCamera } from 'react-native-camera';
 import { useRef } from 'react';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ActionSheet, Root } from 'native-base';
-import ImagePicker from "react-native-image-crop-picker";
+import { Root } from 'native-base';
+import { launchImageLibrary } from 'react-native-image-picker';
+
+//  Create formData object to send to backend
+const createFormData = (photo) => {
+  const data = new FormData();
+  data.append('image', {
+    name: photo.fileName,
+    uri: photo.uri,
+    type: photo.type
+  })
+
+  return data;
+}
+
+//  Handle the photo upload
+const handleUploadPhoto = (photo) => {
+  fetch("http://192.168.1.3:3000/api/ask", {
+    method: 'POST',
+    body: createFormData(photo),
+  })
+  .then(alert("Upload Success!"))
+  .catch(err => alert("Error: ", err))
+}
 
 //Home screen components
 const HomeScreen = (props) => {
@@ -16,12 +38,18 @@ const HomeScreen = (props) => {
   //Capture method for camera
   takePicture = async (props) => {
     if (cameraRef) {
-      console.log('Taking photo');
       const options = { quality: 0.5, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
-      // console.log(data,"--------------------------------------------------------");
       props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
-      console.log(props.navigation,"-ggggggggggg-");
+
+      //  creating an object with default name & type
+      const photo = {
+        fileName: 'cameraPhoto.jpg',
+        uri: data.uri,
+        type: 'image/jpeg'
+      }
+      handleUploadPhoto(photo);
+      props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri});
     }
   };
 
@@ -44,47 +72,30 @@ const HomeScreen = (props) => {
   };
 
   //navigate with selected image from defualt image gallery
+  navigateToViewPhotos = (data) => {
+    props.navigation.navigate("QuestionAnswerScreen",{uri:data.uri})
   navigateToViewPhotos = data => {
-    console.log("-ggggggggggg-ssasdasdas", data);
     props.navigation.navigate("QuestionAnswerScreen",{uri:data[0].path})
   };
+}
 
   choosePhotosFromGallery = () => {
-  ImagePicker.openPicker({
-      width:  600,
-      height: 450,
-      multiple: true,
-  })
-      .then(images => {
-          console.log(images)
-          if (images.length > 0) {
-              navigateToViewPhotos(images);
-          }
-      })
-      .catch(err => {
-          console.log(' Error fetching images from gallery ', err);
-      });
+    const options = {
+      maxWidth: 600,
+      maxHeight: 450,
+      quality: 0.5
+    }
+
+    //  launches image library and responds with an object with image details
+    launchImageLibrary(options, response => {
+      if(!response.didCancel){
+        navigateToViewPhotos(response)
+        handleUploadPhoto(response)
+      }
+
+    })
 };
 
-selectImages = () => {
-  const buttons = ['Camera', 'Photo Library', 'Cancel'];
-  ActionSheet.show(
-      {
-          options: buttons,
-          cancelButtonIndex: 2,
-      },
-      buttonIndex => {
-          console.log(' selected index ', buttonIndex);
-          switch (buttonIndex) {
-              case 1:
-                  this.choosePhotosFromGallery();
-                  break;
-              default:
-                  break;
-          }
-      },
-  );
-}
 
     return ( 
       <Root>
@@ -112,7 +123,7 @@ selectImages = () => {
           </View>
           <View style={styles.bottomSection}>
             <View style={styles.camBottomBar}>
-                <TouchableOpacity   onPress={() => selectImages()} style={styles.capture}>
+                <TouchableOpacity   onPress={() => choosePhotosFromGallery()} style={styles.capture}>
                   <Icon name="images-outline" size={36} color='#264CAD' />
                 </TouchableOpacity>
                 <TouchableOpacity  onPress={() => takePicture(props)} style={styles.captureBtn}>
@@ -127,7 +138,13 @@ selectImages = () => {
       </Root>
       
     );
-  }
+  };
+  export default HomeScreen;
+
+
+
+
+
 
   const styles = StyleSheet.create({
     container: {
@@ -176,11 +193,4 @@ selectImages = () => {
       opacity: 0.8,
     }
   });
-export default HomeScreen;
-
-
-
-
-
-
 

@@ -3,13 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/HomeScreen';
+import HelpScreen from '../screens/HelpScreen';
 
 const HomeStack = createStackNavigator();
 
 //top heading bar with hamburger icon
 const TopHeadingBar = ({navigation}) => (
   
-<HomeStack.Navigator screenOptions={{
+<HomeStack.Navigator
+ screenOptions={{
         headerStyle: {
         backgroundColor: '#fff',
         },

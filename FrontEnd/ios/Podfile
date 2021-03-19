@@ -14,6 +14,8 @@ target 'UAsk' do
 
   pod 'RNVolumeController', :path => '../node_modules/react-native-volume-control'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'UAskTests' do
     inherit! :complete
     # Pods for testing
