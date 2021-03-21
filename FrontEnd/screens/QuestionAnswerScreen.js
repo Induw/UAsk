@@ -12,6 +12,26 @@ const Item = ({ title }) => (
   </View>
 );
 
+//  handle the question asked
+const handleQuestionSubmit = (question) => {
+  fetch("http://192.168.1.2:3000/api/ask/question", {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      question: question
+    }),
+  })
+  .then((response) => {
+    if(response.status==200) alert("Question sent! Waiting for answer...");
+    return response.json()
+  })
+  .then((data) => console.log("response ==> ", data.answer))
+  .catch(err => alert("Error: Couldn't send to server...",err))
+}
+
 const QuestionAnswerScreen = (props) => {
 
   const [pitch, setPitch] = useState('');
@@ -58,6 +78,7 @@ const QuestionAnswerScreen = (props) => {
     //Invoked when SpeechRecognizer is finished recognizing
     console.log('onSpeechResults: ', e);
     setResults(e.value);
+    handleQuestionSubmit(e.value[0]);
   };
 
   const onSpeechPartialResults = (e) => {
