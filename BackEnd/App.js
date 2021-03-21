@@ -7,7 +7,13 @@ const path = require('path');
 const cors = require('cors');
 
 app.use(cors());
+app.use(express.json());
 
+//  question asked
+var question = '';
+
+//  answer to be received from the model
+var ans = '';
 
 //  setting storage engine -- file name and type etc
 const storage = multer.diskStorage({
@@ -22,13 +28,18 @@ const imageUpload = multer({
     storage: storage
 })
 
-// post image and question as json
+// post image as json
 app.post('/api/ask', imageUpload.single('image'), (req, res) => {
+    console.log("Image Received!")
     res.status(200).send('POST request recieved...');
 })
 
-app.get('/api/ask', (req, res) => {
-    res.status(200).send("send a POST request to this endpoint...");
+//  post question and get the answer as a response
+app.post('/api/ask/question', (req, res) => {
+    question = req.body.question;
+    res.status(200).json({answer: ans});
+    console.log(question);
+    // TODO: create an API at model and request with the question and return the response as the answer
 });
 
 app.listen(port, () => console.log(`Server is Running at port ${port}...`))
