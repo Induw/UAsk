@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
+const fetch = require('node-fetch');
 
 app.use(cors());
 app.use(express.json());
@@ -13,7 +14,7 @@ app.use(express.json());
 var question = '';
 
 //  answer to be received from the model
-var ans = '';
+var answer = '';
 
 //  setting storage engine -- file name and type etc
 const storage = multer.diskStorage({
@@ -37,9 +38,26 @@ app.post('/api/ask', imageUpload.single('image'), (req, res) => {
 //  post question and get the answer as a response
 app.post('/api/ask/question', (req, res) => {
     question = req.body.question;
-    res.status(200).json({answer: ans});
+    //res.status(200).json({answer: ans});
     console.log(question);
     // TODO: create an API at model and request with the question and return the response as the answer
+    answer = getAnswer();
+    res.status(200).json({answer: answer})
 });
+
+//  Fetch method call to the API at the model
+const getAnswer = () => {
+    return fetch("http://192.168.1.2:8000/", {
+    method: 'POST',
+    body: JSON.stringify({
+        question: question
+    }),
+    headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.text())
+    .then(text => console.log(text))
+}
+
+
 
 app.listen(port, () => console.log(`Server is Running at port ${port}...`))
