@@ -156,33 +156,20 @@ const QuestionAnswerScreen = (props) => {
         <Image style={styles.img} source={{ uri: props.route.params.uri }} ></Image>
       </View>
       <View style={styles.QuestionAnswerBox}>
-        <View style={styles.wrap}>
-          <Text>
-            {/* <ScrollView> */}
-              {
-              <Text
-                style={styles.textStyle}>
-                {results[0] + "?"}
-              </Text>
+      <ScrollView style={styles.scrollView}>
+        <View 
+        // style={styles.wrap}
+        >
               
-            }
-            {console.log(results[0]+ "?")}
-
-            {/* {results.map((result, index) => {
-              console.log(index + "index --------------------------");
-              console.log(result);
-            return (
-              <Text
-                key={`result-${index}`}
-                
-                style={styles.textStyle}>
-                {result}
-              </Text>
-            );
-          })} */}
-            {/* </ScrollView> */}
-          </Text>
+            <Text style={styles.textStyle}>
+              {results[0]}
+            </Text>
+            <Text style={styles.textStyle2}>
+              Response for user Question
+            </Text>
+          
         </View>
+        </ScrollView>
       </View>
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.capture}>
@@ -225,14 +212,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     opacity: 0.6,
   },
-  wrap: {
-    margin: 10,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    width: '100%'
-
-
-  },
+  // wrap: {
+  //   // margin: 10,
+  //   // borderRadius: 10,
+  //   // backgroundColor: '#fff',
+  //   // width: '90%'
+  // },
   capture: {
     flex: 0,
     borderRadius: 5,
@@ -259,6 +244,19 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   textStyle: {
-    padding: 12,
+    alignItems: 'center',
+    fontSize: 25,
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    width: '85%'
+  },
+  textStyle2: {
+    textAlign: 'right',
+    fontSize: 25,
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    width: '95%'
   },
 });

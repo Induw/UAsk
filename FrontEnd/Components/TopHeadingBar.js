@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/HomeScreen';
-import HelpScreen from '../screens/HelpScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -21,9 +20,19 @@ const TopHeadingBar = ({navigation}) => (
         }
     }}>
         <HomeStack.Screen name="Home" component={HomeScreen} options={{
-        headerTitleStyle: {color: '#264CAD', fontWeight: 'bold'},
-        title:'UAsk',
-        headerTitleAlign: 'center',
+          
+          headerTitleStyle: {color: '#264CAD', fontWeight: 'bold', flexDirection: 'row'},
+          headerTitleAlign: 'center',
+          
+          headerTitle: (
+            <Icon name="eye" size={40} color="#264CAD" backgroundColor="#fff" ></Icon>
+          ),
+          
+        // headerTitleStyle: {color: '#264CAD', fontWeight: 'bold'},
+      
+        // title:'UAsk',
+        // headerTitleAlign: 'center',
+
         headerLeft: () => (
           //Hamburger icon
             <Icon.Button name="md-menu" size={36} color="#264CAD" backgroundColor="#fff" onPress={() => navigation.openDrawer()}></Icon.Button>
