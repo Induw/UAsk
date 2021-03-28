@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView,TextInput, Button, FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Voice from 'react-native-voice';
+import { KeyboardAccessoryView } from 'react-native-keyboard-accessory';
 
 const Item = ({ title }) => (
   <View style={styles.item}>
@@ -38,8 +39,10 @@ const QuestionAnswerScreen = (props) => {
   const [error, setError] = useState('');
   const [end, setEnd] = useState('');
   const [started, setStarted] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([""]);
   const [partialResults, setPartialResults] = useState([]);
+  const [iskeyboard,setisKeyboard]= useState (false);
+  const [keyboardinput, setkeyboardinput] = useState ("");
 
   useEffect(() => {
     //Setting callbacks for the process status
@@ -55,6 +58,11 @@ const QuestionAnswerScreen = (props) => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
   }, []);
+  const keyboard = () => {
+    
+    setisKeyboard(!iskeyboard); 
+
+  };
 
   const onSpeechStart = (e) => {
     //Invoked when .start() is called without error
@@ -156,10 +164,8 @@ const QuestionAnswerScreen = (props) => {
         <Image style={styles.img} source={{ uri: props.route.params.uri }} ></Image>
       </View>
       <View style={styles.QuestionAnswerBox}>
-      <ScrollView style={styles.scrollView}>
-        <View 
-        // style={styles.wrap}
-        >
+        <ScrollView style={styles.scrollView}>
+        <View>
               
             <Text style={styles.textStyle}>
               {results[0]}
@@ -167,9 +173,41 @@ const QuestionAnswerScreen = (props) => {
             <Text style={styles.textStyle2}>
               Response for user Question
             </Text>
-          
+
         </View>
+        
         </ScrollView>
+        <View style={styles.wrap}>
+          
+          {iskeyboard ? <KeyboardAccessoryView alwaysVisible={true} androidAdjustResize>
+          {({ isKeyboardVisible }) => (
+            <View style={styles.textInputView}>
+              <TextInput
+                placeholder="Write your message"
+                onChangeText={TextInputValueHolder =>setkeyboardinput(TextInputValueHolder)}
+                underlineColorAndroid="transparent"
+                style={styles.textInput}
+                multiline={true}
+              />
+              {isKeyboardVisible && (
+                <Button
+                  style={styles.textInputButton}
+                  title="Send"
+                  onPress={() => {
+                    
+                    console.log(results);
+
+                    // results.push(keyboardinput);
+                    setResults([keyboardinput]);
+                    setisKeyboard(false);
+                    }}
+                />
+              )}
+            </View>
+          )}
+        
+          </KeyboardAccessoryView> : <></>}
+        </View>
       </View>
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.capture}>
@@ -178,7 +216,7 @@ const QuestionAnswerScreen = (props) => {
         <TouchableOpacity onPress={startRecognizing} style={styles.capture}>
           <Icon name="mic-circle-outline" size={70} color='#264CAD' />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => flipCamera()} style={styles.capture}>
+        <TouchableOpacity onPress={() => keyboard()} style={styles.capture}>
           <Icons name='keyboard' size={36} type='material' color='#264CAD' />
         </TouchableOpacity>
       </View>
@@ -258,5 +296,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     width: '95%'
+  },
+  textInputView: {
+    padding: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  textInput: {
+    flexGrow: 0,
+    borderWidth: 0,
+    borderRadius: 10,
+    borderColor: "#CCC",
+    padding: 10,
+    fontSize: 16,
+   // marginRight: 10,
+    //textAlignVertical: "top",
+  },
+  textInputButton: {
+    flexShrink: 1,
   },
 });
