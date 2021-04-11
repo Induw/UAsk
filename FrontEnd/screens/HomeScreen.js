@@ -21,12 +21,9 @@ const createFormData = (photo) => {
 
 //  Handle the photo upload
 const handleUploadPhoto = (photo) => {
-  fetch("http://192.168.1.2:3000/api/ask", {
+  fetch("http://192.168.1.5:3000/api/ask", {
     method: 'POST',
     body: createFormData(photo),
-  })
-  .then(res => {
-    if(res.status==200) alert("Upload Success!");
   })
   .catch(err => alert("Error: ", err))
 }

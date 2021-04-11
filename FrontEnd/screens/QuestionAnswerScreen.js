@@ -31,7 +31,7 @@ const QuestionAnswerScreen = (props) => {
 
 //  handle the question asked
 const handleQuestionSubmit = (question) => {
-  fetch("http://192.168.1.2:3000/api/ask/question", {
+  fetch("http://192.168.1.5:3000/api/ask/question", {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -42,12 +42,11 @@ const handleQuestionSubmit = (question) => {
     }),
   })
   .then((response) => {
-    if(response.status==200) alert("Question sent! Waiting for answer...");
     return response.json()
   })
   .then((data) => {
-    console.log("response ==> ", data.answer);
     setAnswer(data.answer);
+    handleVoice(data.answer);
   })
   .catch(err => alert("Error: Couldn't send to server...",err))
 }
@@ -183,7 +182,7 @@ const handleVoice = ttsText =>{
             <Text style={styles.textStyle}>
               {results[0]}
             </Text>
-            <Text style={styles.textStyle2} onPress={() => handleVoice(answer)}>
+            <Text style={styles.textStyle2}>
               {answer}
             </Text>
 
@@ -207,9 +206,7 @@ const handleVoice = ttsText =>{
                   style={styles.textInputButton}
                   title="Send"
                   onPress={() => {
-                    
-                    console.log(results);
-
+                    handleQuestionSubmit(keyboardinput)
                     // results.push(keyboardinput);
                     setResults([keyboardinput]);
                     setisKeyboard(false);
