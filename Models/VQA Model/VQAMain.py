@@ -24,3 +24,35 @@ def questionFeatures(question):
         tokenizedQuestion[0,j,:] = wordTokens[j].vector
     return tokenizedQuestion
 
+
+'''method to initialize the VGG-16 CNN'''
+def imageModel(CNNWeightsFile):
+    #Calling the CNN weight file
+    from models.CNN.VGG import VGG_16
+    #returns the updated model with the weights
+    CNNModel = VGG_16(CNNWeightsFile)
+    sgdCaller = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    CNNModel.compile(optimizer=sgdCaller, loss='categorical_crossentropy')
+    return CNNModel
+
+
+'''method to featurize the inputed images'''
+def imageFeatures(image, CNNWeightsFile):
+    #creating the 1, 4096 dimension vector
+    imgFeatures = np.zeros((1, 4096))
+    #image resizing as VGG-16 trained image size
+    img = cv2.resize(cv2.imread(image), (224, 224))
+    #calling mean pixel values as trained 
+    mean_pixel = [103.939, 116.779, 123.68]
+    
+    img = img.astype(np.float32, copy=False)
+    for i in range(3):
+        img[:, :, i] = img[:, :, i] - mean_pixel[i]
+    # convert the image to RGBA
+    img = img.transpose((2,0,1)) 
+
+    #calling axis dimension VGG was trained on a dimension of 1, 3, 224, 224 
+    img = np.expand_dims(img, axis=0) 
+    imgFeatures[0,:] = imageModel(CNNWeightsFile).predict(img)[0]
+    return imgFeatures
+
