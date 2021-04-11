@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView,TextInput
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Tts from 'react-native-tts';
 
 import Voice from 'react-native-voice';
 import { KeyboardAccessoryView } from 'react-native-keyboard-accessory';
@@ -12,6 +13,21 @@ const Item = ({ title }) => (
     <Text style={styles.title}>{title}</Text>
   </View>
 );
+
+
+
+
+const QuestionAnswerScreen = (props) => {
+
+  const [pitch, setPitch] = useState('');
+  const [error, setError] = useState('');
+  const [end, setEnd] = useState('');
+  const [started, setStarted] = useState('');
+  const [results, setResults] = useState([""]);
+  const [partialResults, setPartialResults] = useState([]);
+  const [iskeyboard,setisKeyboard]= useState (false);
+  const [keyboardinput, setkeyboardinput] = useState ("");
+  const [answer, setAnswer] = useState("");
 
 //  handle the question asked
 const handleQuestionSubmit = (question) => {
@@ -29,20 +45,17 @@ const handleQuestionSubmit = (question) => {
     if(response.status==200) alert("Question sent! Waiting for answer...");
     return response.json()
   })
-  .then((data) => console.log("response ==> ", data.answer))
+  .then((data) => {
+    console.log("response ==> ", data.answer);
+    setAnswer(data.answer);
+  })
   .catch(err => alert("Error: Couldn't send to server...",err))
 }
 
-const QuestionAnswerScreen = (props) => {
-
-  const [pitch, setPitch] = useState('');
-  const [error, setError] = useState('');
-  const [end, setEnd] = useState('');
-  const [started, setStarted] = useState('');
-  const [results, setResults] = useState([""]);
-  const [partialResults, setPartialResults] = useState([]);
-  const [iskeyboard,setisKeyboard]= useState (false);
-  const [keyboardinput, setkeyboardinput] = useState ("");
+//method to handle text to voice
+const handleVoice = ttsText =>{
+  Tts.speak(ttsText);
+}
 
   useEffect(() => {
     //Setting callbacks for the process status
@@ -170,8 +183,8 @@ const QuestionAnswerScreen = (props) => {
             <Text style={styles.textStyle}>
               {results[0]}
             </Text>
-            <Text style={styles.textStyle2}>
-              Response for user Question
+            <Text style={styles.textStyle2} onPress={() => handleVoice(answer)}>
+              {answer}
             </Text>
 
         </View>
