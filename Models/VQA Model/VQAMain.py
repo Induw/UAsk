@@ -56,3 +56,13 @@ def imageFeatures(image, CNNWeightsFile):
     imgFeatures[0,:] = imageModel(CNNWeightsFile).predict(img)[0]
     return imgFeatures
 
+
+'''method to initialize the VQA Architecture'''
+def VQAModel(VQAWeightsFile):
+      #Calling the CNN weight file
+    from models.VQA.VQA import VQA_MODEL
+    VQAModel = VQA_MODEL()
+    VQAModel.load_weights(VQAWeightsFile)
+
+    VQAModel.compile(loss='categorical_crossentropy', optimizer='rmsprop')
+    return VQAModel
