@@ -66,3 +66,51 @@ def VQAModel(VQAWeightsFile):
 
     VQAModel.compile(loss='categorical_crossentropy', optimizer='rmsprop')
     return VQAModel
+
+
+
+
+# File paths 
+#VQA weight file
+VQAWeightsFile   = 'models/VQA/VQA_MODEL_WEIGHTS.hdf5'
+#label encoder file
+labelEncoderFile = 'models/VQA/FULL_labelencoder_trainval.pkl'
+#CNN weight file
+CNNWeightsFile   = 'models/CNN/vgg16_weights.h5'
+
+
+start = 1
+
+#main method of the model to print the answe for inputed question and image
+def main():
+    mainParser = argparse.ArgumentParser()
+    #inputing image to the model
+    mainParser.add_argument('-imageFile', type=str, default='download (7).jpg')
+    #inputing question to the model
+    mainParser.add_argument('-inputQuestion', type=str, default='what animal is in the picture?')
+    args = mainParser.parse_args()
+
+    #loading image model
+    if start : print("Running featurized image ...")
+    imgFeatures = imageFeatures(args.imageFile, CNNWeightsFile)
+
+    #loading question model
+    if start : print("Running featurized question ...")
+    qusFeatures = questionFeatures(args.inputQuestion)
+
+    #loading VQA model
+    if start : print("Running VQA ...")
+    mainModel = VQAModel(VQAWeightsFile)
+
+    #printing the results
+    if start : print("Results ...") 
+    yResult =  mainModel.predict([qusFeatures, imgFeatures])
+    ySortIndexRes = np.argsort(yResult)
+    #calling labelencoder
+    labelencoderCaller = joblib.load(labelEncoderFile)
+    #print reults
+    for item in reversed(ySortIndexRes[0,-1:]):
+        print(str(round(yResult[0,item]*100,2)).zfill(5), labelencoderCaller.inverse_transform(item))
+
+if __name__ == "__main__":
+    main()
