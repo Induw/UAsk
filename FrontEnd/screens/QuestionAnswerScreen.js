@@ -1,60 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView,TextInput, Button, FlatList } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  TextInput,
+  Button,
+} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Tts from 'react-native-tts';
 
 import Voice from 'react-native-voice';
-import { KeyboardAccessoryView } from 'react-native-keyboard-accessory';
+import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
 
-const Item = ({ title }) => (
+const Item = ({title}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
   </View>
 );
 
-
-
-
 const QuestionAnswerScreen = (props) => {
-
   const [pitch, setPitch] = useState('');
   const [error, setError] = useState('');
   const [end, setEnd] = useState('');
   const [started, setStarted] = useState('');
-  const [results, setResults] = useState([""]);
+  const [results, setResults] = useState(['']);
   const [partialResults, setPartialResults] = useState([]);
-  const [iskeyboard,setisKeyboard]= useState (false);
-  const [keyboardinput, setkeyboardinput] = useState ("");
-  const [answer, setAnswer] = useState("");
+  const [iskeyboard, setisKeyboard] = useState(false);
+  const [keyboardinput, setkeyboardinput] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [shouldShow, setShouldShow] = useState(false);
+  const [answerShow, setAnswerShouldShow] = useState(false);
 
-//  handle the question asked
-const handleQuestionSubmit = (question) => {
-  fetch("http://192.168.1.5:3000/api/ask/question", {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      question: question
-    }),
-  })
-  .then((response) => {
-    return response.json()
-  })
-  .then((data) => {
-    setAnswer(data.answer);
-    handleVoice(data.answer);
-  })
-  .catch(err => alert("Error: Couldn't send to server...",err))
-}
+  //  handle the question asked
+  const handleQuestionSubmit = (question) => {
+    fetch('http://192.168.1.5:3000/api/ask/question', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        question: question,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setAnswer(data.answer);
+        handleVoice(data.answer);
+      })
+      .catch((err) => alert("Error: Couldn't send to server...", err));
+  };
 
-//method to handle text to voice
-const handleVoice = ttsText =>{
-  Tts.speak(ttsText);
-}
+  //method to handle text to voice
+  const handleVoice = (ttsText) => {
+    Tts.speak(ttsText);
+  };
 
   useEffect(() => {
     //Setting callbacks for the process status
@@ -71,9 +78,7 @@ const handleVoice = ttsText =>{
     };
   }, []);
   const keyboard = () => {
-    
-    setisKeyboard(!iskeyboard); 
-
+    setisKeyboard(!iskeyboard);
   };
 
   const onSpeechStart = (e) => {
@@ -84,8 +89,10 @@ const handleVoice = ttsText =>{
 
   const onSpeechEnd = (e) => {
     //Invoked when SpeechRecognizer stops recognition
+
     console.log('onSpeechEnd: ', e);
     setEnd('√');
+    setShouldShow(true);
   };
 
   const onSpeechError = (e) => {
@@ -167,67 +174,85 @@ const handleVoice = ttsText =>{
 
   useEffect(() => {
     // Update the document title using the browser API
-    console.log(props + "--------------------------------------------------------");
+    console.log(
+      props + '--------------------------------------------------------',
+    );
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imgView}>
-        <Image style={styles.img} source={{ uri: props.route.params.uri }} ></Image>
+        <Image
+          style={styles.img}
+          source={{uri: props.route.params.uri}}></Image>
       </View>
+
       <View style={styles.QuestionAnswerBox}>
         <ScrollView style={styles.scrollView}>
-        <View>
-              
-            <Text style={styles.textStyle}>
-              {results[0]}
-            </Text>
-            <Text style={styles.textStyle2}>
-              {answer}
-            </Text>
-
-        </View>
-        
-        </ScrollView>
-        <View style={styles.wrap}>
-          
-          {iskeyboard ? <KeyboardAccessoryView alwaysVisible={true} androidAdjustResize>
-          {({ isKeyboardVisible }) => (
-            <View style={styles.textInputView}>
-              <TextInput
-                placeholder="Write your message"
-                onChangeText={TextInputValueHolder =>setkeyboardinput(TextInputValueHolder)}
-                underlineColorAndroid="transparent"
-                style={styles.textInput}
-                multiline={true}
-              />
-              {isKeyboardVisible && (
-                <Button
-                  style={styles.textInputButton}
-                  title="Send"
-                  onPress={() => {
-                    handleQuestionSubmit(keyboardinput)
-                    // results.push(keyboardinput);
-                    setResults([keyboardinput]);
-                    setisKeyboard(false);
-                    }}
-                />
-              )}
+          {/* {shouldShow && (
+            <View>
+              <Text style={styles.textStyle}>{results[0]}</Text>
+              <Text style={styles.textStyle2}>{answer}</Text>
             </View>
+          )} */}
+          <View>
+            {shouldShow && <Text style={styles.textStyle}>{results[0]}</Text>}
+            {answerShow && <Text style={styles.textStyle2}>{answer}</Text>}
+          </View>
+        </ScrollView>
+
+        <View style={styles.wrap}>
+          {iskeyboard ? (
+            <KeyboardAccessoryView alwaysVisible={true} androidAdjustResize>
+              {({isKeyboardVisible}) => (
+                <View style={styles.textInputView}>
+                  <TextInput
+                    placeholder="Write your message"
+                    onChangeText={(TextInputValueHolder) =>
+                      setkeyboardinput(TextInputValueHolder)
+                    }
+                    underlineColorAndroid="transparent"
+                    style={styles.textInput}
+                    multiline={true}
+                  />
+                  {isKeyboardVisible && (
+                    <Button
+                      style={styles.textInputButton}
+                      title="Send"
+                      onPress={() => {
+                        setShouldShow(true);
+                        handleQuestionSubmit(keyboardinput);
+                        // results.push(keyboardinput);
+                        setResults([keyboardinput]);
+                        setisKeyboard(false);
+                      }}
+                    />
+                  )}
+                </View>
+              )}
+            </KeyboardAccessoryView>
+          ) : (
+            <></>
           )}
-        
-          </KeyboardAccessoryView> : <></>}
         </View>
       </View>
+
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.capture}>
-          < Icon name="camera-outline" onPress={() => { props.navigation.navigate('Home') }} size={36} color='#264CAD' />
+          <Icon
+            name="camera-outline"
+            onPress={() => {
+              props.navigation.navigate('Home');
+            }}
+            size={36}
+            color="#264CAD"
+          />
         </TouchableOpacity>
         <TouchableOpacity onPress={startRecognizing} style={styles.capture}>
-          <Icon name="mic-circle-outline" size={70} color='#264CAD' />
+          <Icon name="mic-circle-outline" size={70} color="#264CAD" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => keyboard()} style={styles.capture}>
-          <Icons name='keyboard' size={36} type='material' color='#264CAD' />
+          <Icons name="keyboard" size={36} type="material" color="#264CAD" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -245,7 +270,7 @@ const styles = StyleSheet.create({
   img: {
     height: '100%',
     width: '100%',
-    borderRadius: 20
+    borderRadius: 20,
   },
   imgView: {
     height: '50%',
@@ -260,26 +285,27 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     opacity: 0.6,
   },
-  // wrap: {
-  //   // margin: 10,
-  //   // borderRadius: 10,
-  //   // backgroundColor: '#fff',
-  //   // width: '90%'
-  // },
+  wrap: {
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: 'green',
+    width: '90%',
+    borderRadius: 20,
+  },
   capture: {
     flex: 0,
     borderRadius: 5,
     paddingHorizontal: 30,
     alignSelf: 'center',
     marginHorizontal: 5,
-    marginVertical: 5
+    marginVertical: 5,
   },
   bottomBar: {
     flex: 0,
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 100,
-    marginTop: 20,
+    marginTop: 10,
     opacity: 0.8,
   },
   item: {
@@ -297,33 +323,33 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     backgroundColor: '#fff',
-    width: '85%'
+    paddingHorizontal: 5,
+    alignSelf: 'baseline',
   },
   textStyle2: {
     textAlign: 'right',
     fontSize: 25,
-    margin: 10,
     borderRadius: 10,
     backgroundColor: '#fff',
-    width: '95%'
+    width: '95%',
   },
   textInputView: {
-    padding: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    // justifyContent: "space-between",
+    alignItems: 'flex-start',
+    alignItems: 'center',
+    padding: 2,
   },
   textInput: {
-    flexGrow: 0,
+    width: '80%',
     borderWidth: 0,
     borderRadius: 10,
-    borderColor: "#CCC",
     padding: 10,
     fontSize: 16,
-   // marginRight: 10,
-    //textAlignVertical: "top",
+    backgroundColor: 'blue',
   },
   textInputButton: {
-    flexShrink: 1,
+    marginRight: 20,
+    width: '100%',
   },
 });
