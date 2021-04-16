@@ -238,7 +238,10 @@ const QuestionAnswerScreen = (props) => {
       </View>
 
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.capture}>
+        <TouchableOpacity style={styles.capture}
+        accessible={true}
+        accessibilityLabel="Camara button"
+        accessibilityHint="Take a picture">
           <Icon
             name="camera-outline"
             onPress={() => {
@@ -248,10 +251,16 @@ const QuestionAnswerScreen = (props) => {
             color="#264CAD"
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={startRecognizing} style={styles.capture}>
+        <TouchableOpacity onPress={startRecognizing} style={styles.capture}
+        accessible={true}
+        accessibilityLabel="microphone button"
+        accessibilityHint="ask a question">
           <Icon name="mic-circle-outline" size={70} color="#264CAD" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => keyboard()} style={styles.capture}>
+        <TouchableOpacity onPress={() => keyboard()} style={styles.capture}
+        accessible={true}
+        accessibilityLabel="microphone button"
+        accessibilityHint="ask a question">
           <Icons name="keyboard" size={36} type="material" color="#264CAD" />
         </TouchableOpacity>
       </View>
@@ -304,7 +313,7 @@ const styles = StyleSheet.create({
     flex: 0,
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: 100,
+    borderRadius: 1000,
     marginTop: 10,
     opacity: 0.8,
   },
