@@ -2,6 +2,9 @@ import os, argparse
 import cv2, spacy, numpy as np
 from keras.optimizers import SGD
 from sklearn.externals import joblib
+import uvicorn 
+from fastapi import FastAPI
+from pydantic import BaseModel
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from keras import backend as K
@@ -82,12 +85,13 @@ CNNWeightsFile   = 'models/CNN/vgg16_weights.h5'
 start = 1
 
 #main method of the model to print the answe for inputed question and image
-def main():
+def main(inputQuestion):
     mainParser = argparse.ArgumentParser()
     #inputing image to the model
-    mainParser.add_argument('-imageFile', type=str, default='download (7).jpg')
+    mainParser.add_argument('-imageFile', type=str, default='./../../BackEnd/uploaded-image/image.jpg')
+
     #inputing question to the model
-    mainParser.add_argument('-inputQuestion', type=str, default='what animal is in the picture?')
+    mainParser.add_argument('-inputQuestion', type=str, default=inputQuestion)
     args = mainParser.parse_args()
 
     #loading image model
@@ -110,7 +114,27 @@ def main():
     labelencoderCaller = joblib.load(labelEncoderFile)
     #print reults
     for item in reversed(ySortIndexRes[0,-1:]):
-        print(str(round(yResult[0,item]*100,2)).zfill(5), labelencoderCaller.inverse_transform(item))
+        return (str(labelencoderCaller.inverse_transform(item)))
 
-if __name__ == "__main__":
-    main()
+class Question(BaseModel):
+    question: str
+
+class Answer(BaseModel):
+    answer: str
+
+#Init app
+app = FastAPI()
+
+
+@app.post("/", response_model=Answer)
+async def getQuestion(request: Question):
+    inputQus = request.question
+    response = main(inputQus)
+    res = {"answer": response}
+     
+    return res
+
+    
+
+if _name_ == "_main_":
+    uvicorn.run(app,host = "127.0.0.1",port=8000)
