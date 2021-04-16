@@ -20,6 +20,7 @@ const SettingsScreen = ({}) => {
           minimumTrackTintColor="black"
           maximumTrackTintColor="#000000"
           thumbTintColor="#264CAD"
+          
           // value={100}
           // onValueChange={this.sliderChange}
           />

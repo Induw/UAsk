@@ -132,6 +132,8 @@ import {
   SettingsScreen,
   QuestionAnswerScreen,
   AboutUsScreen,
+  Privacypolicy,
+  TermsScreen
 } from './screens';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
@@ -158,6 +160,8 @@ const App = () => {
         <Drawer.Screen name="HelpScreen" component={HelpScreen} />
         <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
         <Drawer.Screen name="AboutUsScreen" component={AboutUsScreen} />
+        <Drawer.Screen name="Privacypolicy" component={Privacypolicy} />
+        <Drawer.Screen name="TermsScreen" component={TermsScreen} />
         <Drawer.Screen
           name="QuestionAnswerScreen"
           component={QuestionAnswerScreen}

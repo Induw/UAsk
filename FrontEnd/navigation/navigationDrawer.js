@@ -41,6 +41,8 @@ import {
   SettingsScreen,
   QuestionAnswerScreen,
   AboutUsScreen,
+  Privacypolicy,
+  TermsScreen
 } from '../screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -149,6 +151,43 @@ const root = ({navigation}) => {
           ),
         }}
       />
+
+      <Stack.Screen
+        name="Privacypolicy"
+        component={Privacypolicy}
+        options={{
+          headerShown: true,
+          headerTitleAlign: 'center',
+          title: 'PrivacyPolicy',
+          headerLeft: () => (
+            <Icon.Button
+              name="arrow-back"
+              size={36}
+              color="#264CAD"
+              backgroundColor="#fff"
+              onPress={() => navigation.goBack()}></Icon.Button>
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="TermsScreen"
+        component={TermsScreen}
+        options={{
+          headerShown: true,
+          headerTitleAlign: 'center',
+          title: 'Terms',
+          headerLeft: () => (
+            <Icon.Button
+              name="arrow-back"
+              size={36}
+              color="#264CAD"
+              backgroundColor="#fff"
+              onPress={() => navigation.goBack()}></Icon.Button>
+          ),
+        }}
+      />
+
     </Stack.Navigator>
   );
 };
