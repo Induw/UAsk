@@ -130,14 +130,23 @@ const HomeScreen = (props) => {
         <View style={styles.bottomSection}>
           <View style={styles.camBottomBar}>
             <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="Gallery"
+            accessibilityHint="Choose photos from gallery"
               onPress={() => choosePhotosFromGallery()}
               style={styles.capture}>
               <Icon name="images-outline" size={36} color="#264CAD" />
             </TouchableOpacity>
             <TouchableOpacity
+             accessible={true}
+             accessibilityLabel="Camara button"
+             accessibilityHint="Take a picture"
               onPress={() => takePicture(props)}
               style={styles.captureBtn}></TouchableOpacity>
             <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="Camara flip button"
+            accessibilityHint="Flip camara "
               onPress={() => flipCamera()}
               style={styles.capture}>
               <Icon name="camera-reverse" size={36} color="#264CAD" />
