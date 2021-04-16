@@ -53,6 +53,7 @@ const QuestionAnswerScreen = (props) => {
       })
       .then((data) => {
         setAnswer(data.answer);
+        setAnswerShouldShow(true);
         handleVoice(data.answer);
       })
       .catch((err) => alert("Error: Couldn't send to server...", err));
