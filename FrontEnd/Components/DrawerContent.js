@@ -13,12 +13,11 @@ export function DrawerContent(props) {
             <View style={{flexDirection: 'row', marginTop: 0}}>
               <View
                 style={{
-                  marginLeft: 5,
-                  marginTop: 5,
-                  flexDirection: 'column',
+                  marginTop: 10,
+                  flexDirection: 'row',
                   height: 100,
                 }}>
-                <View style={{marginLeft: 15, marginTop: 5}}>
+                <View style={{marginLeft: 5, marginTop: 5}}>
                   <Icon name="eye" size={40} color="#264CAD" marginLeft={5} />
                 </View>
                 <Title style={styles.title}>UAsk</Title>
@@ -76,26 +75,14 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingLeft: 20,
+    height: '20%',
   },
   title: {
     fontSize: 30,
-    marginTop: 10,
+    marginTop: 14,
     fontWeight: 'bold',
     color: '#264CAD',
-  },
-  row: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  section: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 15,
-  },
-  paragraph: {
-    fontWeight: 'bold',
-    marginRight: 3,
+    marginLeft: 10,
   },
   drawerSection: {
     marginTop: 15,

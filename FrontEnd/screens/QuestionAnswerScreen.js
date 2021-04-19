@@ -16,6 +16,7 @@ import Tts from 'react-native-tts';
 
 import Voice from 'react-native-voice';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
+import HomeScreen from './HomeScreen';
 
 const Item = ({title}) => (
   <View style={styles.item}>
@@ -23,7 +24,7 @@ const Item = ({title}) => (
   </View>
 );
 
-const QuestionAnswerScreen = (props) => {
+const QuestionAnswerScreen = (props, navigation) => {
   const [pitch, setPitch] = useState('');
   const [error, setError] = useState('');
   const [end, setEnd] = useState('');
@@ -38,7 +39,7 @@ const QuestionAnswerScreen = (props) => {
 
   //  handle the question asked
   const handleQuestionSubmit = (question) => {
-    fetch('http://192.168.1.5:3000/api/ask/question', {
+    fetch('http://ec2-54-179-7-5.ap-southeast-1.compute.amazonaws.com:3000/api/ask/question', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -202,66 +203,57 @@ const QuestionAnswerScreen = (props) => {
           </View>
         </ScrollView>
 
-        <View style={styles.wrap}>
-          {iskeyboard ? (
-            <KeyboardAccessoryView alwaysVisible={true} androidAdjustResize>
-              {({isKeyboardVisible}) => (
-                <View style={styles.textInputView}>
-                  <TextInput
-                    placeholder="Write your message"
-                    onChangeText={(TextInputValueHolder) =>
-                      setkeyboardinput(TextInputValueHolder)
-                    }
-                    underlineColorAndroid="transparent"
-                    style={styles.textInput}
-                    multiline={true}
-                  />
-                  {isKeyboardVisible && (
-                    <Button
-                      style={styles.textInputButton}
-                      title="Send"
-                      onPress={() => {
+        {iskeyboard ? (
+          <KeyboardAccessoryView alwaysVisible={true} androidAdjustResize style={styles.KeyboardAccessoryView}>
+            {({isKeyboardVisible}) => (
+              <View style={styles.textInputView}>
+                <TextInput
+                  placeholder="Enter your question"
+                  onChangeText={(TextInputValueHolder) =>
+                    setkeyboardinput(TextInputValueHolder)
+                  }
+                  underlineColorAndroid="transparent"
+                  style={styles.textInput}
+                  multiline={true}
+                  autoFocus={true}
+                />
+                {isKeyboardVisible && (
+                  <TouchableOpacity style={styles.textInputButton}  onPress={() => {
                         setShouldShow(true);
                         handleQuestionSubmit(keyboardinput);
                         // results.push(keyboardinput);
                         setResults([keyboardinput]);
                         setisKeyboard(false);
-                      }}
-                    />
-                  )}
-                </View>
-              )}
-            </KeyboardAccessoryView>
-          ) : (
-            <></>
-          )}
-        </View>
+                      }}>
+                    <Icon name="send" size={30} color="#264CAD" />
+
+                  </TouchableOpacity>
+                )}
+              </View>
+            )}
+          </KeyboardAccessoryView>
+        ) : (
+          <></>
+        )}
       </View>
 
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.capture}
-        accessible={true}
-        accessibilityLabel="Camara button"
-        accessibilityHint="Take a picture">
+        <TouchableOpacity
+          style={styles.capture}
+          onPress={() => navigation.goBack()}>
           <Icon
             name="camera-outline"
             onPress={() => {
-              props.navigation.navigate('Home');
+              props.navigation.navigate('HomeScreen');
             }}
             size={36}
             color="#264CAD"
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={startRecognizing} style={styles.capture}
-        accessible={true}
-        accessibilityLabel="microphone button"
-        accessibilityHint="ask a question">
+        <TouchableOpacity onPress={startRecognizing} style={styles.capture}>
           <Icon name="mic-circle-outline" size={70} color="#264CAD" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => keyboard()} style={styles.capture}
-        accessible={true}
-        accessibilityLabel="microphone button"
-        accessibilityHint="ask a question">
+        <TouchableOpacity onPress={() => keyboard()} style={styles.capture}>
           <Icons name="keyboard" size={36} type="material" color="#264CAD" />
         </TouchableOpacity>
       </View>
@@ -296,10 +288,9 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   wrap: {
-    margin: 10,
     borderRadius: 10,
     backgroundColor: 'green',
-    width: '90%',
+    width: '100%',
     borderRadius: 20,
   },
   capture: {
@@ -338,28 +329,32 @@ const styles = StyleSheet.create({
   },
   textStyle2: {
     textAlign: 'right',
+    alignItems: 'center',
     fontSize: 25,
     borderRadius: 10,
     backgroundColor: '#fff',
-    width: '95%',
+    alignSelf: 'baseline'
+  },
+  KeyboardAccessoryView: {
+    marginBottom: 30,
+    borderRadius: 5,
+    justifyContent: 'center'
+
   },
   textInputView: {
     flexDirection: 'row',
     // justifyContent: "space-between",
     alignItems: 'flex-start',
     alignItems: 'center',
-    padding: 2,
   },
   textInput: {
+    color: 'black',
     width: '80%',
-    borderWidth: 0,
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
-    backgroundColor: 'blue',
   },
   textInputButton: {
-    marginRight: 20,
-    width: '100%',
+    marginLeft: 10
   },
 });

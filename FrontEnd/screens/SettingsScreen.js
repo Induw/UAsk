@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import Slider from '@react-native-community/slider';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -20,9 +20,8 @@ const SettingsScreen = ({}) => {
           minimumTrackTintColor="black"
           maximumTrackTintColor="#000000"
           thumbTintColor="#264CAD"
-          
-          // value={100}
-          // onValueChange={this.sliderChange}
+          // value={state.volume}
+          // onValueChange={sliderChange}
           />
         </View>
       </View>
@@ -59,23 +58,21 @@ const styles = StyleSheet.create({
   soundcngBox: {
     flex: 0,
     flexDirection: 'column',
-    width: '100%',
     backgroundColor: '#fff',
     alignItems: 'flex-start',
     height: '14%',
     opacity: 1,
     borderRadius: 20,
-    marginTop: 10
+    margin: 10
   },
   clrChngBox: {
     flex: 0,
     flexDirection: 'row',
-    width: '100%',
     backgroundColor: '#fff',
     alignItems: 'center',
     height: '10%',
     opacity: 1,
     borderRadius: 20,
-    marginTop: 10,
+    margin: 10
   }
 });

@@ -46,6 +46,9 @@ import {
 } from '../screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Text } from 'react-native';
+import {color} from 'react-native-reanimated';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const root = ({navigation}) => {
   const Stack = createStackNavigator();
@@ -63,13 +66,19 @@ const root = ({navigation}) => {
           headerShown: true,
           headerTitleAlign: 'center',
           title: 'Help',
+          headerTitleStyle: {
+            color: '#264CAD',
+          },
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -88,12 +97,15 @@ const root = ({navigation}) => {
           headerTitleAlign: 'center',
           title: 'Home',
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -105,13 +117,19 @@ const root = ({navigation}) => {
           headerShown: true,
           headerTitleAlign: 'center',
           title: 'Settings',
+          headerTitleStyle: {
+            color: '#264CAD',
+          },
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -122,14 +140,24 @@ const root = ({navigation}) => {
         options={{
           headerTitleAlign: 'center',
           headerShown: true,
-          title: 'Question',
+          title: "UAsk",
+          headerBackTitleVisible: 'false',
+          headerTitleStyle: {
+            color: '#264CAD',
+          },
+          headerRight: () => (
+            <Icon style={{marginRight: 10}} name="md-eye" size={30} color="#264CAD" />
+          ),
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -141,13 +169,19 @@ const root = ({navigation}) => {
           headerShown: true,
           headerTitleAlign: 'center',
           title: 'About Us',
+          headerTitleStyle: {
+            color: '#264CAD',
+          },
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -160,12 +194,15 @@ const root = ({navigation}) => {
           headerTitleAlign: 'center',
           title: 'PrivacyPolicy',
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -178,12 +215,15 @@ const root = ({navigation}) => {
           headerTitleAlign: 'center',
           title: 'Terms',
           headerLeft: () => (
-            <Icon.Button
-              name="arrow-back"
-              size={36}
-              color="#264CAD"
-              backgroundColor="#fff"
-              onPress={() => navigation.goBack()}></Icon.Button>
+            <TouchableOpacity style={{marginLeft: 5}}>
+              <Icon
+                name="arrow-back"
+                size={36}
+                color="#264CAD"
+                backgroundColor="#fff"
+                onPress={() => navigation.goBack()}>
+              </Icon>
+            </TouchableOpacity>
           ),
         }}
       />

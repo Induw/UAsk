@@ -22,7 +22,7 @@ const createFormData = (photo) => {
 
 //  Handle the photo upload
 const handleUploadPhoto = (photo) => {
-  fetch('http://192.168.1.5:3000/api/ask', {
+  fetch('http://ec2-54-179-7-5.ap-southeast-1.compute.amazonaws.com:3000/api/ask', {
     method: 'POST',
     body: createFormData(photo),
   }).catch((err) => alert('Error: ', err));
