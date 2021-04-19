@@ -36,12 +36,12 @@ app.post('/api/ask', imageUpload.single('image'), (req, res) => {
 })
 
 //  post question and get the answer as a response
-app.post('/api/ask/question', (req, res) => {
+app.post('/api/ask/question', async(req, res) => {
     question = req.body.question;
     //res.status(200).json({answer: ans});
     console.log(question);
     // TODO: create an API at model and request with the question and return the response as the answer
-    answer = getAnswer();
+    answer = await getAnswer();
     res.status(200).json({answer: answer})
 });
 
