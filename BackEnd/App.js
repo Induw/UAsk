@@ -40,7 +40,6 @@ app.post('/api/ask/question', async(req, res) => {
     question = req.body.question;
     //res.status(200).json({answer: ans});
     console.log(question);
-    // TODO: create an API at model and request with the question and return the response as the answer
     answer = await getAnswer();
     res.status(200).json({answer: answer})
 });
@@ -54,8 +53,11 @@ const getAnswer = () => {
     }),
     headers: { 'Content-Type': 'application/json' }
     })
-    .then(res => res.text())
-    .then(text => console.log(text))
+    .then(res => res.json())
+    .then(text => {
+        console.log(text)
+        return text.answer
+    })
 }
 
 
