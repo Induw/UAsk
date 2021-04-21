@@ -24,8 +24,8 @@ const HeaderMenu = ({title, leftOnPressed, right, containerStyle}) => {
       </TouchableOpacity>
       {/* Lable title */}
       <View style={{flex: 1, alignItems: 'center', paddingRight: 50}}>
-        <Icon name="md-eye" size={30} color="#264CAD" />
-        <Text style={{color: '#264CAD', fontWeight: 'bold'}}>{title}</Text>
+        <Icon name="md-eye" size={25} color="#264CAD" />
+        <Text style={{color: '#264CAD', fontFamily: 'WorkSans-Bold'}}>{title}</Text>
       </View>
     </View>
   );

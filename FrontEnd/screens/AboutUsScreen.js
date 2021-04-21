@@ -24,13 +24,13 @@ const AboutUsScreen = (props) => {
       <TouchableOpacity style={styles.TermsBox} onPress={() => {
               props.navigation.navigate('Privacypolicy');
             }}>
-        <Text style={{ fontSize: 25, color: '#264CAD'}} >Privacy Policy</Text>
+        <Text style={{ fontSize: 20, color: '#264CAD', fontFamily:  'WorkSans-Bold'}} >Privacy Policy</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.TermsBox} onPress={() => {
               props.navigation.navigate('TermsScreen');
             }}>
-        <Text style={{ fontSize: 25, color: '#264CAD'}}>Terms of Use</Text>
+        <Text style={{ fontSize: 20, color: '#264CAD', fontFamily:  'WorkSans-Bold'}}>Terms of Use</Text>
       </TouchableOpacity>
     </SafeAreaView>
     );
@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
   baseText: {
     marginLeft: 20,
     marginTop: 10, 
-    fontSize: 22, 
+    fontSize: 25, 
     color: '#264CAD',
-    fontWeight: 'bold'
+    fontFamily:  'WorkSans-Bold'
   },
   bodyText: {
     marginLeft: 20, 
@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontSize: 20, 
     color: '#264CAD',
-    textAlign: 'justify'
+    textAlign: 'justify',
+    fontFamily:  'WorkSans-Medium'
   },
   TermsBox: {
     flex: 0,

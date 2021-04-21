@@ -34,6 +34,7 @@ export function DrawerContent(props) {
                 <Icon name="home-outline" color={'#264CAD'} size={30} />
               )}
               label={'Home'}
+              labelStyle={{ color: '#264CAD', fontFamily: 'WorkSans-Medium', fontSize: 15}}
               onPress={() => {
                 props.navigation.navigate('root', {screen: 'HomeScreen'});
               }}
@@ -43,6 +44,7 @@ export function DrawerContent(props) {
                 <Icon name="help-circle" color={'#264CAD'} size={30} />
               )}
               label="Help"
+              labelStyle={{ color: '#264CAD', fontFamily: 'WorkSans-Medium', fontSize: 15}}
               onPress={() => {
                 props.navigation.navigate('root', {screen: 'HelpScreen'});
               }}
@@ -50,6 +52,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={() => <Icon name="cog" color={'#264CAD'} size={30} />}
               label="Settings"
+              labelStyle={{ color: '#264CAD', fontFamily: 'WorkSans-Medium', fontSize: 15}}
               onPress={() => {
                 props.navigation.navigate('root', {screen: 'SettingsScreen'});
               }}
@@ -58,6 +61,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={() => <Icon name="alert-box" color={'#264CAD'} size={30} />}
               label="About Us"
+              labelStyle={{ color: '#264CAD', fontFamily: 'WorkSans-Medium', fontSize: 15}}
               onPress={() => {
                 props.navigation.navigate('root', {screen: 'AboutUsScreen'});
               }}
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     marginTop: 14,
-    fontWeight: 'bold',
+    fontFamily: 'WorkSans-Bold',
     color: '#264CAD',
     marginLeft: 10,
   },

@@ -39,7 +39,7 @@ const QuestionAnswerScreen = (props, navigation) => {
 
   //  handle the question asked
   const handleQuestionSubmit = (question) => {
-    fetch('http://ec2-54-179-7-5.ap-southeast-1.compute.amazonaws.com:3000/api/ask/question', {
+    fetch('http://192.168.1.3:3000/api/ask/question', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -62,6 +62,7 @@ const QuestionAnswerScreen = (props, navigation) => {
 
   //method to handle text to voice
   const handleVoice = (ttsText) => {
+    Tts.setDefaultRate(1.5, true);
     Tts.speak(ttsText);
   };
 
@@ -81,6 +82,8 @@ const QuestionAnswerScreen = (props, navigation) => {
   }, []);
   const keyboard = () => {
     setisKeyboard(!iskeyboard);
+    setAnswerShouldShow(false);
+    setShouldShow(false);
   };
 
   const onSpeechStart = (e) => {
@@ -126,6 +129,7 @@ const QuestionAnswerScreen = (props, navigation) => {
     //Starts listening for speech for a specific locale
     try {
       await Voice.start('en-US');
+      setAnswerShouldShow(false);
       setPitch('');
       setError('');
       setStarted('');
@@ -199,7 +203,9 @@ const QuestionAnswerScreen = (props, navigation) => {
           )} */}
           <View>
             {shouldShow && <Text style={styles.textStyle}>{results[0]}</Text>}
-            {answerShow && <Text style={styles.textStyle2}>{answer}</Text>}
+            <View style={styles.answerBox}>
+              {answerShow && <Text style={styles.textStyle2}>{answer}</Text>}
+            </View>
           </View>
         </ScrollView>
 
@@ -326,14 +332,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 5,
     alignSelf: 'baseline',
+    fontFamily: 'WorkSans-Medium'
   },
   textStyle2: {
-    textAlign: 'right',
     alignItems: 'center',
     fontSize: 25,
     borderRadius: 10,
     backgroundColor: '#fff',
-    alignSelf: 'baseline'
+    alignSelf: 'baseline',
+    fontFamily: 'WorkSans-Medium',
+  },
+  answerBox: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    marginHorizontal: 10,
   },
   KeyboardAccessoryView: {
     marginBottom: 30,

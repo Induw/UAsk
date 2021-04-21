@@ -1,39 +1,3 @@
-// import React from 'react';
-// import {View, Image, TouchableOpacity, Text, StyleSheet} from 'react-native';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createDrawerNavigator} from '@react-navigation/drawer';
-// import {DrawerContent} from '../Components/DrawerContent';
-// import TopHeadingBar from '../Components/TopHeadingBar';
-
-// import {
-//   HomeScreen,
-//   HelpScreen,
-//   SettingsScreen,
-//   QuestionAnswerScreen,
-//   AboutUsScreen,
-// } from '../screens';
-
-// const Drawer = createDrawerNavigator();
-
-// const Drawers = () => {
-//   return (
-//     <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-//       <Drawer.Screen name="TopHeadingBar" component={TopHeadingBar} />
-//       <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-//       <Drawer.Screen name="HelpScreen" component={HelpScreen} />
-//       <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-//       <Drawer.Screen name="AboutUsScreen" component={AboutUsScreen} />
-//       <Drawer.Screen
-//         name="QuestionAnswerScreen"
-//         component={QuestionAnswerScreen}
-//       />
-//       <Drawer.Screen name="Homescreen" component={HomeScreen} />
-//     </Drawer.Navigator>
-//   );
-// };
-
-// export default Drawers;
-
 import React from 'react';
 import {
   HomeScreen,
@@ -68,6 +32,7 @@ const root = ({navigation}) => {
           title: 'Help',
           headerTitleStyle: {
             color: '#264CAD',
+            fontFamily: 'WorkSans-Bold'
           },
           headerLeft: () => (
             <TouchableOpacity style={{marginLeft: 5}}>
@@ -92,7 +57,8 @@ const root = ({navigation}) => {
           },
           headerTintColor: '#264CAD', //Set Header text color
           headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
+             //Set Header text style
+            fontFamily: 'WorkSans-Bold'
           },
           headerTitleAlign: 'center',
           title: 'Home',
@@ -119,6 +85,7 @@ const root = ({navigation}) => {
           title: 'Settings',
           headerTitleStyle: {
             color: '#264CAD',
+            fontFamily: 'WorkSans-Bold'
           },
           headerLeft: () => (
             <TouchableOpacity style={{marginLeft: 5}}>
@@ -144,6 +111,7 @@ const root = ({navigation}) => {
           headerBackTitleVisible: 'false',
           headerTitleStyle: {
             color: '#264CAD',
+            fontFamily: 'WorkSans-Bold'
           },
           headerRight: () => (
             <Icon style={{marginRight: 10}} name="md-eye" size={30} color="#264CAD" />
@@ -171,6 +139,7 @@ const root = ({navigation}) => {
           title: 'About Us',
           headerTitleStyle: {
             color: '#264CAD',
+            fontFamily: 'WorkSans-Bold'
           },
           headerLeft: () => (
             <TouchableOpacity style={{marginLeft: 5}}>
@@ -193,6 +162,10 @@ const root = ({navigation}) => {
           headerShown: true,
           headerTitleAlign: 'center',
           title: 'PrivacyPolicy',
+          headerTitleStyle: {
+            color: '#264CAD',
+            fontFamily: 'WorkSans-Bold'
+          },
           headerLeft: () => (
             <TouchableOpacity style={{marginLeft: 5}}>
               <Icon
@@ -214,6 +187,10 @@ const root = ({navigation}) => {
           headerShown: true,
           headerTitleAlign: 'center',
           title: 'Terms',
+          headerTitleStyle: {
+            color: '#264CAD',
+            fontFamily: 'WorkSans-Bold'
+          },
           headerLeft: () => (
             <TouchableOpacity style={{marginLeft: 5}}>
               <Icon

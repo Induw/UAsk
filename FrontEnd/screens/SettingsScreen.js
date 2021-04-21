@@ -10,7 +10,7 @@ const SettingsScreen = ({}) => {
     return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#264CAD'}}>
       <View style={styles.soundcngBox}>
-        <Text style={{marginLeft: 15,marginTop: 5, fontSize: 20, color: '#264CAD'}}>Volume</Text>
+        <Text style={{marginLeft: 15,marginTop: 5, fontSize: 20, color: '#264CAD', fontFamily: 'WorkSans-Medium'}}>Volume</Text>
         <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 15, width: '90%' }}>
           <Icon name="volume-high-outline" size={36} color='#264CAD' flexDirection='column' />
           <Slider
@@ -26,18 +26,18 @@ const SettingsScreen = ({}) => {
         </View>
       </View>
       <View style={styles.clrChngBox}>
-        <Text style={{marginLeft: 15, fontSize: 20, color: '#264CAD'}}>Theme</Text>
+        <Text style={{marginLeft: 15, fontSize: 20, color: '#264CAD', fontFamily: 'WorkSans-Medium'}}>Theme</Text>
         <DropDownPicker
           items={[
-              {label: 'Color', value: 'Color' },
-              {label: 'Color', value: 'uk' },
-              {label: 'Color', value: 'france' }
+              {label: 'Defualt', value: 'Color' },
+              {label: 'Dark', value: 'uk' },
+              {label: 'Light', value: 'france' }
           ]}
-          containerStyle={{width: 160, height: 40, marginHorizontal: 100}}
+          containerStyle={{width: 150, height: 40, marginHorizontal: 100}}
           style={{backgroundColor: '#fafafa'}}
           itemStyle={{
               justifyContent: 'flex-start',
-              width: '100%'
+              width: '100%',
           }}
           dropDownStyle={{backgroundColor: '#fafafa'}}
           />

@@ -34,19 +34,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffff',
     borderRadius: 20,
     margin: 10,
-    flex: 1
-  },
-  baseText: {
-    fontSize: 15,
-    fontWeight: "bold",
-    textAlign:"left"
+    flex: 1,
   },
    titleText: {
     marginLeft: 20,
     marginTop: 25, 
-    fontSize: 30, 
+    fontSize: 25, 
     color: '#264CAD',
-    fontWeight: 'bold'
+    fontFamily: 'WorkSans-Bold'
+    
   },
   body:{
     marginLeft: 20,
@@ -54,6 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 10, 
     fontSize: 20, 
     color: '#264CAD',
+    fontFamily: 'WorkSans-Medium'
   }
 });
 

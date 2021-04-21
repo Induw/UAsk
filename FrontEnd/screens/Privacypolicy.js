@@ -9,12 +9,8 @@ const  Privacypolicy = (props) => {
 
     
     <SafeAreaView style={{flex: 1, backgroundColor: '#264CAD'}}>
-    
-    <Text style={styles.titleText}>
-    Privacy 
-    <Text style={styles.innerText}> Policy</Text>
-    </Text>
-    <Text style={{marginLeft: 35,marginRight: 35,marginTop: 15, fontSize: 18, color: '#fff'}}>
+    <Text style={styles.titleText}>Privacy Policy</Text>
+    <Text style={styles.bodyText}>
       {"\n"}Welcome to UAsk. UAsk provides a fast and accurate visual question answering utility {"\n"}
       {"\n"}After an image is taken , using the built in camara capture feature, then user can ask questions about image {"\n"}
       {"\n"}Our Privacy Policy applies to all visitors, users, and others who access the Service ("Users").{"\n"}
@@ -33,36 +29,20 @@ const  Privacypolicy = (props) => {
 export default Privacypolicy;
 
 const styles = StyleSheet.create({
-  baseText: {
-    fontSize: 15,
-    fontFamily: "Cochin",
-    fontWeight: "bold",
-    
-    textAlign:"left"
-  },
-  titleText: {
-    fontSize: 30,
-    marginBottom: 10,
-    
-    fontWeight: "bold",
-    color:"#264CAD",
-    textAlign:"center"
-    
-  },
-  ////
    titleText: {
-    marginLeft: 35,marginTop: 25, fontSize: 30, color: '#fff',
-    fontWeight: 'bold'
+    marginLeft: 20,
+    marginTop: 10, 
+    fontSize: 30, 
+    color: '#fff',
+    fontFamily: 'WorkSans-Bold'
   },
-  innerText: {
-    color: '#fff'
-  },
-  ///
   bodyText:{
-    fontSize: 1000,
-    fontFamily: "Cochin",
-    
-    textAlign:"left"
+    marginLeft: 20,
+    marginTop: 5, 
+    fontSize: 18, 
+    color: '#fff',
+    fontFamily: 'WorkSans-Medium',
+    marginRight: 20,
 
   }
 });
