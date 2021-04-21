@@ -20,6 +20,8 @@ target 'UAsk' do
 
   pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
 
+  pod 'react-native-receive-sharing-intent', :path => '../node_modules/react-native-receive-sharing-intent'
+
   target 'UAskTests' do
     inherit! :complete
     # Pods for testing

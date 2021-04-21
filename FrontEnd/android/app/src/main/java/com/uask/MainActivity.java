@@ -1,5 +1,6 @@
 package com.uask;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
@@ -15,6 +16,12 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "UAsk";
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    setIntent(intent);
   }
 
   @Override

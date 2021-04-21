@@ -195,12 +195,6 @@ const QuestionAnswerScreen = (props, navigation) => {
 
       <View style={styles.QuestionAnswerBox}>
         <ScrollView style={styles.scrollView}>
-          {/* {shouldShow && (
-            <View>
-              <Text style={styles.textStyle}>{results[0]}</Text>
-              <Text style={styles.textStyle2}>{answer}</Text>
-            </View>
-          )} */}
           <View>
             {shouldShow && <Text style={styles.textStyle}>{results[0]}</Text>}
             <View style={styles.answerBox}>

@@ -33,6 +33,7 @@
     "react-native-material-design": "^0.3.7",
     "react-native-paper": "^4.7.1",
     "react-native-reanimated": "^1.13.2",
+    "react-native-receive-sharing-intent": "^1.1.0",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.2",
     "react-native-splash-screen": "^3.2.0",

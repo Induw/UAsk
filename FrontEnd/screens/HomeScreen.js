@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Root} from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
 import HeaderMenu from '../Components/HeaderMenu';
+import ReceiveSharingIntent from 'react-native-receive-sharing-intent';
 
 //  Create formData object to send to backend
 const createFormData = (photo) => {
@@ -22,7 +23,7 @@ const createFormData = (photo) => {
 
 //  Handle the photo upload
 const handleUploadPhoto = (photo) => {
-  fetch('http://ec2-54-179-7-5.ap-southeast-1.compute.amazonaws.com:3000/api/ask', {
+  fetch('http://192.168.1.3:3000/api/ask', {
     method: 'POST',
     body: createFormData(photo),
   }).catch((err) => alert('Error: ', err));
@@ -30,6 +31,24 @@ const handleUploadPhoto = (photo) => {
 
 //Home screen components
 const HomeScreen = (props) => {
+
+  ReceiveSharingIntent.getReceivedFiles(files => {
+    props.navigation.navigate('QuestionAnswerScreen', {uri: files[0].contentUri});
+
+    // files returns as JSON Array example
+    //[{ filePath: null, text: null, weblink: null, mimeType: null, contentUri: null, fileName: null, extension: null }]
+  }, 
+  (error) =>{
+    console.log(error);
+  }, 
+  'ShareMedia' // share url protocol )
+  );
+
+  
+  // To clear Intents
+  ReceiveSharingIntent.clearReceivedFiles();
+  
+
   let cameraRef = useRef(null);
   const [cameraType, setcameraType] = useState(RNCamera.Constants.Type.back);
   const [FlashMode, setfalshligt] = useState(RNCamera.Constants.FlashMode.off);
