@@ -238,6 +238,9 @@ const QuestionAnswerScreen = (props, navigation) => {
 
       <View style={styles.bottomBar}>
         <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Camara button"
+          accessibilityHint="Go back to Camera"
           style={styles.capture}
           onPress={() => navigation.goBack()}>
           <Icon
@@ -249,10 +252,15 @@ const QuestionAnswerScreen = (props, navigation) => {
             color="#264CAD"
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={startRecognizing} style={styles.capture}>
+        <TouchableOpacity onPress={startRecognizing} style={styles.capture} 
+          accessible={true}
+          accessibilityLabel="Microphone button"
+          accessibilityHint="Ask a question">
           <Icon name="mic-circle-outline" size={70} color="#264CAD" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => keyboard()} style={styles.capture}>
+        <TouchableOpacity onPress={() => keyboard()} style={styles.capture} accessible={true}
+         accessibilityLabel="key board button"
+         accessibilityHint="Enter the question">
           <Icons name="keyboard" size={36} type="material" color="#264CAD" />
         </TouchableOpacity>
       </View>

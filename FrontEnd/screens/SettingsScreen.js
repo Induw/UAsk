@@ -20,27 +20,10 @@ const SettingsScreen = ({}) => {
           minimumTrackTintColor="black"
           maximumTrackTintColor="#000000"
           thumbTintColor="#264CAD"
-          // value={state.volume}
+          value={100}
           // onValueChange={sliderChange}
           />
         </View>
-      </View>
-      <View style={styles.clrChngBox}>
-        <Text style={{marginLeft: 15, fontSize: 20, color: '#264CAD', fontFamily: 'WorkSans-Medium'}}>Theme</Text>
-        <DropDownPicker
-          items={[
-              {label: 'Defualt', value: 'Color' },
-              {label: 'Dark', value: 'uk' },
-              {label: 'Light', value: 'france' }
-          ]}
-          containerStyle={{width: 150, height: 40, marginHorizontal: 100}}
-          style={{backgroundColor: '#fafafa'}}
-          itemStyle={{
-              justifyContent: 'flex-start',
-              width: '100%',
-          }}
-          dropDownStyle={{backgroundColor: '#fafafa'}}
-          />
       </View>
     </SafeAreaView>
     );
