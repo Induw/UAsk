@@ -29,14 +29,27 @@ const handleUploadPhoto = (photo) => {
   }).catch((err) => alert('Error: ', err));
 };
 
+//  Create form data for DeepLinking select
+const createFormDataForDeepLinking = (file) => {
+  const data = new FormData();
+  data.append('image', {
+    name: file.fileName,
+    uri: file.contentUri,
+    type: file.mimeType,
+  });
+
+  return data;
+};
+
 //Home screen components
 const HomeScreen = (props) => {
 
   ReceiveSharingIntent.getReceivedFiles(files => {
     props.navigation.navigate('QuestionAnswerScreen', {uri: files[0].contentUri});
-
-    // files returns as JSON Array example
-    //[{ filePath: null, text: null, weblink: null, mimeType: null, contentUri: null, fileName: null, extension: null }]
+    fetch('http://192.168.1.3:3000/api/ask', {
+      method: 'POST',
+      body: createFormDataForDeepLinking(files[0]),
+    }).catch((err) => alert('Error: ', err));
   }, 
   (error) =>{
     console.log(error);
