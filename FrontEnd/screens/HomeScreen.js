@@ -37,6 +37,8 @@ const createFormDataForDeepLinking = (file) => {
     uri: file.contentUri,
     type: file.mimeType,
   });
+  // To clear Intents
+  ReceiveSharingIntent.clearReceivedFiles();
 
   return data;
 };
@@ -56,11 +58,8 @@ const HomeScreen = (props) => {
   }, 
   'ShareMedia' // share url protocol )
   );
-
-  
   // To clear Intents
   ReceiveSharingIntent.clearReceivedFiles();
-  
 
   let cameraRef = useRef(null);
   const [cameraType, setcameraType] = useState(RNCamera.Constants.Type.back);
