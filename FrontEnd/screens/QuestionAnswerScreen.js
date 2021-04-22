@@ -62,7 +62,6 @@ const QuestionAnswerScreen = (props, navigation) => {
 
   //method to handle text to voice
   const handleVoice = (ttsText) => {
-    Tts.setDefaultRate(1.5, true);
     Tts.speak(ttsText);
   };
 
