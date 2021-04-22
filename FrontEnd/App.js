@@ -10,7 +10,7 @@ import {
 } from './screens';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
-import root from './navigation/navigationDrawer';
+import root from './navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HeaderMenu from './Components/HeaderMenu';
 import {DrawerContent} from './Components/DrawerContent';
