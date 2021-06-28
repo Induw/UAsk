@@ -1,4 +1,5 @@
-![UAsk](https://user-images.githubusercontent.com/62239826/123573085-e9d06580-d7ea-11eb-9f37-9fb6e4dc3735.jpg | height = 300)
+<img src="https://user-images.githubusercontent.com/62239826/123573085-e9d06580-d7ea-11eb-9f37-9fb6e4dc3735.jpg" width="200" height="400" />
+
 
 
 <h2>UAsk</h2>
